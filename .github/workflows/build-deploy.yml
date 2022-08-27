@@ -6,7 +6,7 @@ on:
 #    branches: [ main, stage, prod ]
 
 jobs:
-  deploy:
+  build-deploy:
     runs-on: ubuntu-latest
 
     steps:
