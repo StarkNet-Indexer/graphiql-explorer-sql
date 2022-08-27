@@ -1,0 +1,59 @@
+name: Build and deploy to nginx in EKS
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches: [ main, stage, prod ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Compute variables
+      id: var
+      run: |
+        if [[ ${{ github.ref_name }} == main ]]; then echo "::set-output name=namespace::dev"; else echo "::set-output name=namespace::${{ github.ref_name }}"; fi
+        echo "::set-output name=name::${{ github.event.repository.name }}"
+        echo "::set-output name=sha_short::${GITHUB_SHA::7}"
+
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+
+    - name: Install dependencies
+      run: npm install --force
+
+#    - name: Test
+#      run: npm test
+#      env:
+#        CI: true
+
+    - name: Generate build
+      env:
+        namespace: ${{ steps.var.outputs.namespace }}
+#        REACT_APP_GRAPHQL_URL: "https://hasura.${{ steps.var.outputs.namespace }}.summary.dev/v1/graphql"
+#        REACT_APP_GRAPHQL_SUBSCRIPTION_URL: "wss://hasura.${{ steps.var.outputs.namespace }}.summary.dev/v1/graphql"
+#        REACT_APP_GRAPHQL_URL: "https://hasura.${{ steps.var.outputs.namespace }}.summary.dev/sql"
+#        PUBLIC_URL: "https://${{ steps.var.outputs.namespace }}.summary.dev/console"
+      run: ./build.sh
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+
+    - name: Deploy to EKS
+      uses: tensor-hq/eksctl-helm-action@0.1.0
+      env:
+        namespace: ${{ steps.var.outputs.namespace }}
+      with:
+        eks_cluster: dev-eks-starknet-indexer
+        command: ./deploy.sh

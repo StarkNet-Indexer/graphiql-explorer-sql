@@ -76,34 +76,17 @@ Define environment to deploy to: dev, stage or prod.
 export namespace=dev
 ```
 
-Define endpoints for the chosen environment 
+Build with env variables for endpoints of the chosen environment
 ```shell
-export REACT_APP_GRAPHQL_URL="https://hasura.$namespace.summary.dev/v1/graphql" && \
-export REACT_APP_GRAPHQL_SUBSCRIPTION_URL="https://hasura.$namespace.summary.dev/v1/graphql" && \
-export REACT_APP_SQL_URL="https://hasura.$namespace.summary.dev/sql"
+./build.sh
 ```
 
-Define URL for the chosen environment 
-```shell
-PUBLIC_URL = 'https://$namespace.summary.dev/console'
-```
-
-Build 
-```shell
-npm run build
-```
-
-Copy content to nginx web server in EKS cluster.
+### Copy content to nginx web server in EKS cluster.
 
 Copy html files to the data volume 
 ```shell 
-kubectl cp --namespace $namespace index.html data-nginx:/data/ && kubectl cp --namespace $namespace cover.css data-nginx:/data/ && kubectl cp --namespace $namespace pexels-min-an-920534.jpg data-nginx:/data/
+./deploy.sh
 ```
 
-Observe html on nginx data volume
-```shell
-kubectl exec --namespace $namespace -it data-nginx -- ls -la data
-```
-
-Observe updated website at
-[https://dev.summary.dev](https://dev.summary.dev).
+Observe updated web app at
+[https://dev.summary.dev/console](https://dev.summary.dev/console).
