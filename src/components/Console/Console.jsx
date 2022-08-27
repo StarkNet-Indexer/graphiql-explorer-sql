@@ -5,7 +5,7 @@ import { buildClientSchema, getIntrospectionQuery } from "graphql"
 import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import { Resizable } from 're-resizable';
 
-import { DEFAULT_QUERY, GRAPH_QL_URL, GRAPH_QL_SUBSCRIPTION_URL } from '../../constants/constants';
+import { DEFAULT_QUERY, GRAPH_QL_URL, GRAPH_QL_SUBSCRIPTION_URL, GRAPHQL_WELCOME } from '../../constants/constants';
 import {
     makeDefaultArg,
     getDefaultScalarArgValue,
@@ -38,7 +38,7 @@ const getData = (params) => {
 
 class Console extends Component {
     _graphiql
-    state = { schema: null, query: DEFAULT_QUERY, explorerIsOpen: true }
+    state = { schema: null, query: `# ${GRAPHQL_WELCOME}\n\n${DEFAULT_QUERY}`, explorerIsOpen: true }
 
     componentDidMount() {
         this.getSchema();
