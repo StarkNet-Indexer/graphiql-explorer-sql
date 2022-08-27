@@ -21,6 +21,8 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
+# see https://gist.github.com/ljmocic/3b171a3ee6e2a613eac7c465480a72e1
+
     - name: Use Node.js 16.x
       uses: actions/setup-node@v1
       with:
@@ -37,10 +39,7 @@ jobs:
     - name: Generate build
       env:
         namespace: ${{ steps.var.outputs.namespace }}
-#        REACT_APP_GRAPHQL_URL: "https://hasura.${{ steps.var.outputs.namespace }}.summary.dev/v1/graphql"
-#        REACT_APP_GRAPHQL_SUBSCRIPTION_URL: "wss://hasura.${{ steps.var.outputs.namespace }}.summary.dev/v1/graphql"
-#        REACT_APP_GRAPHQL_URL: "https://hasura.${{ steps.var.outputs.namespace }}.summary.dev/sql"
-#        PUBLIC_URL: "https://${{ steps.var.outputs.namespace }}.summary.dev/console"
+        sha_short: ${{ steps.var.outputs.sha_short }}
       run: ./build.sh
 
     - name: Configure AWS credentials
