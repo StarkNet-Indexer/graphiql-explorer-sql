@@ -10,8 +10,6 @@
 # testing
 /coverage
 
-# production
-/build
 
 # misc
 .DS_Store
@@ -24,6 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# idea
+# ide
 .idea
 .vscode
+*.iml
