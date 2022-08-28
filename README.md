@@ -67,7 +67,7 @@ npm run dev:mock
 yarn dev:mock
 ```
 
-## Build and deploy to nginx in EKS cluster
+## Build and deploy to Kubernetes cluster
 
 ### Build with cluster specific env variables
  
@@ -81,9 +81,9 @@ Build with env variables for endpoints of the chosen environment
 ./build.sh
 ```
 
-### Copy content to nginx web server in EKS cluster.
+### Copy content by kubectl to nginx data volume in the cluster
 
-Copy html files to the data volume 
+Copy built files
 ```shell 
 ./deploy.sh
 ```
