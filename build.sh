@@ -2,7 +2,7 @@
 
 export REACT_APP_GRAPHQL_URL="https://hasura.$namespace.summary.dev/v1/graphql"
 export REACT_APP_GRAPHQL_SUBSCRIPTION_URL="wss://hasura.$namespace.summary.dev/v1/graphql"
-export REACT_APP_SQL_URL="https://api.$namespace.summary.dev/sql"
+export REACT_APP_SQL_URL="https://api.$namespace.summary.dev/sql-query"
 export PUBLIC_URL="https://$namespace.summary.dev/console"
 
 export REACT_APP_DEFAULT_GRAPHQL_QUERY="{ event(limit: 10) { name } }"
