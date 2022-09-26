@@ -73,7 +73,12 @@ yarn dev:mock
  
 Define environment to deploy to: dev, stage or prod.
 ```shell
-export namespace=dev
+export namespace=dev && export subdomain=$namespace.
+```
+
+For prod. 
+```shell
+export namespace=dev && export subdomain=
 ```
 
 Build with env variables for endpoints of the chosen environment
