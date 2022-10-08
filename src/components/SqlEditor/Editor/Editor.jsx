@@ -19,7 +19,7 @@ const Editor = ({ onCreateView, onRunQuery }) => {
   }
 
   const onSubmit = () => {
-    const query = value.toLowerCase();
+    const query = value/*.toLowerCase()*/;
     onRunQuery(query)
   }
 
@@ -28,7 +28,7 @@ const Editor = ({ onCreateView, onRunQuery }) => {
     setViewName(event.target.value);
   }
   const handleClickCreateView = () => {
-    const query = value.toLowerCase();
+    const query = value/*.toLowerCase()*/;
     const viewNameTrim = viewName.trim();
     if (viewNameTrim) {
       onCreateView(query, viewNameTrim);
